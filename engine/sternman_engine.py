@@ -2,7 +2,7 @@ from abc import ABC
 
 # Importing the Car and ServiceStrategy classes (assuming they're defined elsewhere)
 from car import Car
-from service_strategy import ServiceStrategy
+from .service_strategy import ServiceStrategy
 
 # Concrete Warning Light Service Strategy
 class WarningLightServiceStrategy(ServiceStrategy):
@@ -18,5 +18,6 @@ class SternmanEngine(Car, ABC):
         super().__init__(last_service_date)
         self.service_strategy = WarningLightServiceStrategy(warning_light_is_on)
 
-    def engine_should_be_serviced(self):
+    def needs_service(self):
         return self.service_strategy.should_be_serviced()
+

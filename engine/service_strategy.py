@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from car import Car
+
 # Define the Service Strategy Interface
 class ServiceStrategy(ABC):
     @abstractmethod
@@ -16,12 +16,10 @@ class MileageServiceStrategy(ServiceStrategy):
     def should_be_serviced(self):
         return self.current_mileage - self.last_service_mileage > self.mileage_threshold
 
-# Refactored WilloughbyEngine Class
-class WilloughbyEngine(Car, ABC):
-    def __init__(self, last_service_date, current_mileage, last_service_mileage):
-        super().__init__(last_service_date)
-        self.service_strategy = MileageServiceStrategy(current_mileage, last_service_mileage, 60000)
+# Concrete Warning Light Service Strategy
+class WarningLightServiceStrategy(ServiceStrategy):
+    def __init__(self, warning_light_is_on):
+        self.warning_light_is_on = warning_light_is_on
 
-    def needs_service(self):
-        return self.service_strategy.should_be_serviced()
-
+    def should_be_serviced(self):
+        return self.warning_light_is_on

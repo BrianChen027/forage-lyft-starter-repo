@@ -7,6 +7,10 @@ from engine.model.palindrome import Palindrome
 from engine.model.rorschach import Rorschach
 from engine.model.thovex import Thovex
 
+from engine.willoughby_engine import WilloughbyEngine
+from engine.sternman_engine import SternmanEngine
+from engine.capulet_engine import CapuletEngine
+
 
 class TestCalliope(unittest.TestCase):
     def test_battery_should_be_serviced(self):
@@ -182,6 +186,21 @@ class TestThovex(unittest.TestCase):
 
         car = Thovex(last_service_date, current_mileage, last_service_mileage)
         self.assertFalse(car.needs_service())
+
+class TestWilloughbyEngine(unittest.TestCase):
+    def test_needs_service(self):
+        engine = WilloughbyEngine('2022-01-01', 100000, 30000)
+        self.assertTrue(engine.engine_should_be_serviced())
+
+class TestSternmanEngine(unittest.TestCase):
+    def test_needs_service(self):
+        engine = SternmanEngine('2022-01-01', True)
+        self.assertTrue(engine.engine_should_be_serviced())
+
+class TestCapuletEngine(unittest.TestCase):
+    def test_needs_service(self):
+        engine = CapuletEngine('2022-01-01', 35000, 5000)
+        self.assertTrue(engine.engine_should_be_serviced())
 
 
 if __name__ == '__main__':
